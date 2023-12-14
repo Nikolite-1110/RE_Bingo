@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using TMPro;
 using DG.Tweening;
 
@@ -146,7 +147,9 @@ public class BingoController : MonoBehaviour
         textTmp.text = i.ToString();
     }
 
-    public void GoTitleScene(){
-
+    public void GoTitleScene(InputAction.CallbackContext context){
+        if(context.phase == InputActionPhase.Performed){
+            SceneManager.LoadScene("TitleScene");
+        }
     }
 }
