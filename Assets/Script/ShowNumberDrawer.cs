@@ -53,14 +53,14 @@ public class ShowNumberDrawer : MonoBehaviour
     }
 
     public void SlotNumberAnimation(){
-        if (count < 10){
+        if (count < 5){
             textTransfrom.anchoredPosition = fromPosition;
             ChangeSlotNumber();
-            textTransfrom.DOAnchorPos(toPosition, slotTime).SetEase(Ease.Linear).OnComplete(() => {
+            textTransfrom.DOAnchorPos(toPosition, slotTime).SetEase(Ease.Linear).SetDelay(0.2f).OnComplete(() => {
                 SlotNumberAnimation();
                 count++;
             });
-            slotTime *= 1.15f;
+            slotTime *= 1.20f;
         } else {
             ShowNumberAnimation();
         }

@@ -118,4 +118,8 @@ public class BingoController : MonoBehaviour
     public void ShowNumberChanger(int i){
         textTmp.text = i.ToString();
     }
+
+    public void GoTitleScene(){
+
+    }
 }
