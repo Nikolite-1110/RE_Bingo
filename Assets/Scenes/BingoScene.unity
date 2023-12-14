@@ -390,6 +390,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 162635775}
     m_Modifications:
+    - target: {fileID: 1669889533135822571, guid: 2c8707a7a064d4adb9727cf7bfa3c65d, type: 3}
+      propertyPath: bingo
+      value: 
+      objectReference: {fileID: 1793076187}
+    - target: {fileID: 1669889533135822571, guid: 2c8707a7a064d4adb9727cf7bfa3c65d, type: 3}
+      propertyPath: textTmp
+      value: 
+      objectReference: {fileID: 1302947504}
+    - target: {fileID: 1669889533135822571, guid: 2c8707a7a064d4adb9727cf7bfa3c65d, type: 3}
+      propertyPath: fadeTransForm
+      value: 
+      objectReference: {fileID: 162635775}
+    - target: {fileID: 1669889533135822571, guid: 2c8707a7a064d4adb9727cf7bfa3c65d, type: 3}
+      propertyPath: fadeCanvasGroup
+      value: 
+      objectReference: {fileID: 162635779}
     - target: {fileID: 3183454616821432654, guid: 2c8707a7a064d4adb9727cf7bfa3c65d, type: 3}
       propertyPath: m_Name
       value: ShowNumber
@@ -493,6 +509,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1302947506 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1669889533135822571, guid: 2c8707a7a064d4adb9727cf7bfa3c65d, type: 3}
+  m_PrefabInstance: {fileID: 1144459146}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7fc1383267424197aea7416b12de1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1455759732
@@ -721,6 +748,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1647360239}
   latestText: {fileID: 1842351452}
+  drawer: {fileID: 1302947506}
   numberPrefab: {fileID: 1135364852781609285, guid: 3ce710e797e6b438ab7c91494b69be75, type: 3}
   fadeCanvasGroup: {fileID: 162635779}
   fadeTransForm: {fileID: 265249167}
