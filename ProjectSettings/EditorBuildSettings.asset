@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BingoScene.unity
     guid: d2ecaffc881c5427fb3d77845c713b4d
+  - enabled: 1
+    path: Assets/Scenes/SubWindow.unity
+    guid: 7648540f2cc7948c38acb46374ba2f95
   m_configObjects: {}
