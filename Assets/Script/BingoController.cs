@@ -50,6 +50,8 @@ public class BingoController : MonoBehaviour
 
     private void GenerateNumbers(){
 
+        int count = 1;
+
         float genx = SIDE_PADDING + prefabSize.x / 2;
         float genxStart = genx;
         float geny = START_POS_Y - prefabSize.y / 2;
@@ -65,6 +67,30 @@ public class BingoController : MonoBehaviour
             RectTransform genRectTrans = genObj.GetComponent<RectTransform>();
             genRectTrans.anchoredPosition = new Vector2(genx, geny);
             
+            Image img = genObj.GetComponent<Image>();
+
+            switch(count){
+                case 1:
+                    img.color = new Color(250f/250f, 100f/250f, 100f/250f, 1);
+                    break;
+                case 2:
+                    img.color = new Color(225f/250f, 100f/250f, 100f/250f, 1);
+                    break;
+                case 3:
+                    img.color = new Color(200f/250f, 100f/250f, 100f/250f, 1);
+                    break;
+                case 4:
+                    img.color = new Color(175f/250f, 100f/250f, 100f/250f, 1); 
+                    break;
+                case 5:
+                    img.color = new Color(150f/250f, 100f/250f, 100f/250f, 1);
+                    break;
+                default:
+                    img.color = Color.black;
+                    break;
+            }
+
+
             GameObject textObj = genObj.transform.Find("NumberText").gameObject;
 
             int textNum = i + 1;
@@ -80,6 +106,7 @@ public class BingoController : MonoBehaviour
             if(i % MAX_COLUMN == MAX_COLUMN - 1){
                 genx = genxStart;
                 geny -= padding_y + prefabSize.y;
+                count++;
             }
         }
     }
