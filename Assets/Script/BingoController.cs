@@ -11,6 +11,7 @@ public class BingoController : MonoBehaviour
 
     [SerializeField] private GameObject canvas;
     [SerializeField] private GameObject latestText;
+    [SerializeField] private ShowNumberDrawer drawer;
 
     private List<GameObject> objectList = new List<GameObject>(); //ゲームオブジェクト格納
     private List<int> numberList = new List<int>();
@@ -19,6 +20,7 @@ public class BingoController : MonoBehaviour
     private Vector2 prefabSize;
     private Vector2 canvasSize;
 
+    private bool allowPush = true;
     
 
     private const int MAX_NUMBER = 75;
@@ -32,7 +34,6 @@ public class BingoController : MonoBehaviour
 
     [SerializeField] private CanvasGroup fadeCanvasGroup;
     [SerializeField] private Transform fadeTransForm;
-    private Sequence sequence;
 
     public GameObject ShowNumberPrefab;
     [SerializeField] private TextMeshProUGUI textTmp;
@@ -43,8 +44,6 @@ public class BingoController : MonoBehaviour
     {
         prefabSize = numberPrefab.GetComponent<RectTransform>().sizeDelta;
         canvasSize = canvas.GetComponent<RectTransform>().sizeDelta;
-
-        fadeCanvasGroup.alpha = 0.0f;
 
         GenerateNumbers();
     }
@@ -86,9 +85,10 @@ public class BingoController : MonoBehaviour
     }
 
     public void DisplayNumberBase(int num){
-        objectList[num].SetActive(true);
-        int drawNum = num + 1;
+        objectList[num - 1].SetActive(true);
+        int drawNum = num;
         latestText.GetComponent<TextMeshProUGUI>().text = drawNum.ToString();
+        allowPush = true;
     }
 
     public void GenerateRandomNumber(){
@@ -97,34 +97,17 @@ public class BingoController : MonoBehaviour
 
         int genNum = numberList[randNum];
         numberList.Remove(genNum);
+        Debug.Log(genNum);
 
-        GetNumberAnimation(genNum);
+        drawer.SetSlot(genNum + 1);
     }
 
     public void OnPushEnter(InputAction.CallbackContext context){
-        if(context.phase == InputActionPhase.Performed){
+        if(context.phase == InputActionPhase.Performed && allowPush){
+            allowPush = false;
             GenerateRandomNumber();
         }
     }
-
-    public void GetNumberAnimation(int i){
-        ShowNumberChanger(i + 1);
-        sequence.Append(fadeCanvasGroup.DOFade(1.0f, 0.5f))
-            .Append(fadeCanvasGroup.DOFade(0.0f, 0.5f).SetDelay(5.0f).OnComplete(() =>
-            {
-                DisplayNumberBase(i);
-            }));
-    }
-
-    public void FadeOutScreen(){
-        fadeCanvasGroup.DOFade(1.0f, 1.0f);
-        Debug.Log("フェードアウト終了");
-    }
-
-    public void FadeInScreen(){
-        fadeCanvasGroup.DOFade(0.0f, 1.0f);
-        Debug.Log("フェードイン終了");
-    } 
 
     public void ShowNumber(){
         Debug.Log("数字表示");
