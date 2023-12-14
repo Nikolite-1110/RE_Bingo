@@ -858,6 +858,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 0c20271d-f924-451e-8afc-3b13e5db48b2
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1793076187}
+        m_TargetAssemblyTypeName: BingoController, Assembly-CSharp
+        m_MethodName: GoTitleScene
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: de4310e4-4453-40bb-9635-92dfb9c38103
+    m_ActionName: Bingo/Esc[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Bingo
