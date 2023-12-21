@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class TitleScene : MonoBehaviour
 {
+    /*
     [SerializeField, Range( 1, 8 )] private int m_useDisplayCount   = 2;
 
     private void Awake()
@@ -17,8 +18,8 @@ public class TitleScene : MonoBehaviour
             Display.displays[i].Activate();
         }
 
-        SceneManager.LoadScene("SubWindow", LoadSceneMode.Additive);
-    }
+        //SceneManager.LoadScene("SubWindow", LoadSceneMode.Additive);
+    }*/
 
     // class GameController
     // Start is called before the first frame update

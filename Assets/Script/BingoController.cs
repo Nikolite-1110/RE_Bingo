@@ -11,11 +11,21 @@ public class BingoController : MonoBehaviour
 {
 
     [SerializeField] private GameObject canvas;
-    [SerializeField] private GameObject latestText;
+    [SerializeField] private GameObject paddingImage;
+    [SerializeField] private List<GameObject> lateTextList;
     [SerializeField] private ShowNumberDrawer drawer;
+
+    public Color firstRowColor;
+    public Color secondRowColor;
+    public Color therdRowColor;
+    public Color fourthRowColor;
+    public Color fifthRowColor;
 
     private List<GameObject> objectList = new List<GameObject>(); //ゲームオブジェクト格納
     private List<int> numberList = new List<int>();
+
+    private Queue<string> lateNumberQueue = new Queue<string>();
+
     public GameObject numberPrefab;
 
     private Vector2 prefabSize;
@@ -27,8 +37,8 @@ public class BingoController : MonoBehaviour
     private const int MAX_NUMBER = 75;
     private const int MAX_COLUMN = 15;
     private const int MAX_ROW = 5;
-    private const float SIDE_PADDING = 10;
-    private const float START_POS_Y = 800;
+    private const float SIDE_PADDING = 15;
+    private const float START_POS_Y = 700;
 
     //////////////////////////////////
     //表示のアニメーションに関するフィールド
@@ -64,7 +74,7 @@ public class BingoController : MonoBehaviour
 
             genx += padding_x;
 
-            GameObject genObj = Instantiate(numberPrefab, canvas.transform) as GameObject;
+            GameObject genObj = Instantiate(numberPrefab, paddingImage.transform) as GameObject;
             RectTransform genRectTrans = genObj.GetComponent<RectTransform>();
             genRectTrans.anchoredPosition = new Vector2(genx, geny);
             
@@ -72,19 +82,19 @@ public class BingoController : MonoBehaviour
 
             switch(count){
                 case 1:
-                    img.color = new Color(250f/250f, 100f/250f, 100f/250f, 1);
+                    img.color = firstRowColor;
                     break;
                 case 2:
-                    img.color = new Color(225f/250f, 100f/250f, 100f/250f, 1);
+                    img.color = secondRowColor;
                     break;
                 case 3:
-                    img.color = new Color(200f/250f, 100f/250f, 100f/250f, 1);
+                    img.color = therdRowColor;
                     break;
                 case 4:
-                    img.color = new Color(175f/250f, 100f/250f, 100f/250f, 1); 
+                    img.color = fourthRowColor;
                     break;
                 case 5:
-                    img.color = new Color(150f/250f, 100f/250f, 100f/250f, 1);
+                    img.color = fifthRowColor;
                     break;
                 default:
                     img.color = Color.black;
@@ -96,7 +106,7 @@ public class BingoController : MonoBehaviour
 
             int textNum = i + 1;
             textObj.GetComponent<TextMeshProUGUI>().text = textNum.ToString();
-            genObj.SetActive(false);
+            genObj.GetComponent<CanvasGroup>().alpha = 0;
 
             objectList.Add(genObj);
             numberList.Add(i);
@@ -113,9 +123,25 @@ public class BingoController : MonoBehaviour
     }
 
     public void DisplayNumberBase(int num){
-        objectList[num - 1].SetActive(true);
-        int drawNum = num;
-        latestText.GetComponent<TextMeshProUGUI>().text = drawNum.ToString();
+        CanvasGroup canvasGroup =  objectList[num - 1].GetComponent<CanvasGroup>();
+        canvasGroup.DOFade(1.0f, 0.2f).SetDelay(0.2f);
+
+        List<string> tempList = new List<string>(lateNumberQueue);
+        tempList.Reverse();
+        //lateText表示用の個数の入っていない場合、足りない分0を入れる
+        for(int i = tempList.Count; i < lateTextList.Count; i++){
+            tempList.Add("00");
+        }
+        Debug.Log("-----------");
+        foreach(string str in tempList){
+            Debug.Log(str);
+        }
+        Debug.Log("-----------");
+
+        for(int i = 0; i < lateTextList.Count; i++){
+            lateTextList[i].GetComponent<TextMeshProUGUI>().text = tempList[i];
+        }
+        
         allowPush = true;
     }
 
@@ -125,6 +151,13 @@ public class BingoController : MonoBehaviour
 
         int genNum = numberList[randNum];
         numberList.Remove(genNum);
+
+        lateNumberQueue.Enqueue((genNum + 1).ToString());
+
+        if(lateNumberQueue.Count > lateTextList.Count){
+            lateNumberQueue.Dequeue();
+        }        
+
         Debug.Log(genNum);
 
         drawer.SetSlot(genNum + 1);
